@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* charts formatting annoyances */
+.charts-container {
+    display: flex;            
+    justify-content: center;  
+    align-items: flex-start;  
+    gap: 20px;                
+}
+
+.small-chart {
+    text-align: center;       
+}
+
+.small-canvas {
+    width: 150px;             
+    height: 150px;            
+    display: block;           
+}
+
+.small-chart h2 {
+    font-size: 14px;          
+    margin-bottom: 10px;      
+}
