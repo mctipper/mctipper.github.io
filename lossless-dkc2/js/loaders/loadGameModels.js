@@ -1,6 +1,7 @@
-import { GameModel } from './models/game.js';
+import { GameModel } from '../models/game.js';
 
 export async function loadGameModels() {
+    // actually loads the data from the json files, and parses it out
     try {
         const gamesPath = 'data/games.json'
         const levelsPath = 'data/levels.json'
@@ -18,16 +19,18 @@ export async function loadGameModels() {
         const gameModels = flattenedGamesData.map(entry => {
             return new GameModel(
                 entry.date,
+                entry.success,
                 entry.world,
                 entry.level,
-                entry.player,
-                entry.character,
+                entry.deathPlayer,
+                entry.deathCharacter,
                 levelsData // levels data used to compute the level name
             );
         });
 
-        return gameModels;
+        return { gameModels, levelsData };
     } catch (error) {
+        // any error, cant render anything so just give up
         console.error("Error loading game or level data:", error);
     }
 }

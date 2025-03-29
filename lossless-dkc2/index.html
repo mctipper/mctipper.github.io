@@ -1,32 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lossless DKC2</title>
     <link rel="stylesheet" href="assets/styles.css">
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <h1>Lossless DKC2</h1>
-    <p>Completing Donkey Kong Country 2 without losing a life, in a single run</p>
-    <p>Death results in restart</p>
-    <p>Chart Sandpit</p>
-    <br>
-    <div class="charts-container">
-        <div class="small-chart">
-            <h2>Player Pie Chart</h2>
-            <canvas class="small-canvas" id="playerPieChart" width="100" height="100"></canvas>
+    <div class="jumbotron">
+        <h1 class="display-4">Lossless DKC2</h1>
+        <p class="lead">Completing Donkey Kong Country 2 without losing a life, in a single run. <i>Death results in
+                a restart.</i></p>
+        <small>We're not very good.</small>
+    </div>
+    <div class="container">
+        <!-- Stats Box -->
+        <div class="row">
+            <div id="statsbox-container" class="display-row">
+                <div class="row">
+                    <!-- Card 1: Stats Left -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <h2 class="card-title">Attempts: <span id="totalAttempts">0</span></h2>
+                                <h3 class="card-text">Successes: <span id="totalSuccesses">0</span></h3>
+                                <hr>
+                                <h4 class="card-text">Mog Deaths: <span id="mogDeaths">0</span></h4>
+                                <h4 class="card-text">Shag Deaths: <span id="shagDeaths">0</span></h4>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Card 2: Stats Right -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <p class="card-subtitle mb-2">Furthest Run:</p>
+                                <p class="card-text">
+                                    <strong>World <span id="furthestWorld">0</span>, Level <span
+                                            id="furthestLevel">0</span></strong><br>
+                                    <i><strong id="furthestRunLevelName">Unknown Level</strong></i>
+                                </p>
+                                <p class="card-text">
+                                    Ruined By: <strong><span id="deathPlayer">Unknown</span> (as <span
+                                            id="deathCharacter">Unknown</span>)</strong>
+                                </p>
+                                <p class="card-text">Times Level Reached: <strong id="timesReached">0</strong></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="small-chart">
-            <h2>Character Pie Chart</h2>
-            <canvas class="small-canvas" id="characterPieChart" width="100" height="100"></canvas>
+        <!-- Death Charts -->
+        <div class="row">
+            <div id="deathcharts-container" class="display-row">
+                <div class="row">
+                    <div class="col-12 text-left">
+                        <h2>Death Charts</h2>
+                        <p class="text-muted">Visual representation of deaths by player and character.</p>
+                    </div>
+                </div>
+                <!-- Second Row: Three Columns for Charts -->
+                <div class="row">
+                    <div class="col-md-3 chart">
+                        <canvas id="playerPieChart"></canvas>
+                    </div>
+                    <div class="col-md-3 chart">
+                        <canvas id="characterPieChart"></canvas>
+                    </div>
+                    <div class="col-md-6 chart">
+                        <canvas id="playerCharacterBarChart"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="small-chart">
-            <h2>Player-Character Bar Chart</h2>
-            <canvas class="small-canvas" id="playerCharacterBarChart" width="100" height="100"></canvas>
+        <!-- Death Streak -->
+        <div class="row">
+            <div id="deathstreak-container" class="display-row">
+                <div class="row">
+                    <div class="col-12 text-left">
+                        <h2>Death Streak</h2>
+                        <p class="deathstreak-subtext text-muted">
+                            Visual representation of death streaks by player. The current worst streak is <span
+                                id="worstStreakValue">abs(streakvalue)</span> by <span
+                                id="worstStreakPlayer">player</span>.
+                        </p>
+                    </div>
+                </div>
+                <!-- Second Row: Chart -->
+                <div class="row">
+                    <div class="col-md-12 chart">
+                        <canvas id="streakPlot"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Progress Charts -->
+        <div class="row">
+            <div id="progress-container" class="display-row">
+                <div class="row">
+                    <div class="col-12 text-left">
+                        <h2>Progression</h2>
+                        <p class="text-muted">
+                            Visual representation of progress made per attempt (most recent at top).</span>.
+                        </p>
+                    </div>
+                </div>
+                <!-- Second Row: Chart -->
+                <div class="row">
+                    <div class="col-md-12 chart">
+                        <canvas id="progressBar"></canvas>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+    <!-- Data Rendering Script, load after render -->
     <script src="js/main.js" type="module"></script>
 </body>
+
 </html>
