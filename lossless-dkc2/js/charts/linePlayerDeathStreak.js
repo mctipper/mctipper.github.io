@@ -89,7 +89,7 @@ export function buildStreakPlot(gameModels) {
                     max: yMax,
                     title: {
                         display: true,
-                        text: '< Mog Deaths   Shag Deaths >', // manually set to appear on each side of the x-axis line
+                        text: 'Mog Deaths   Shag Deaths', // manually set to appear on each side of the x-axis line
                     },
                     ticks: {
                         stepSize: 5,
