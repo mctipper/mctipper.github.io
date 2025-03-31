@@ -180,6 +180,7 @@ export function buildProgressBar(gameModels, levelsData) {
 
     const canvas = document.getElementById('progressBar');
     canvas.style.height = `${dynamicHeight}px`;
+    canvas.style.width = "100%"; // as we modify the height, reset the width
 
 
     chart.update();
