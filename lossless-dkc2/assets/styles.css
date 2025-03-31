@@ -28,7 +28,6 @@ span {
 }
 
 .chart {
-    text-align: center;
     margin-bottom: 16px;
 }
 
@@ -38,11 +37,7 @@ span {
 
 /* statsbox */
 .card {
-    border: none;
-}
-
-.card-body {
-    padding: 16px;
+    border: none !important; /* override card default */
 }
 
 .card-title {
