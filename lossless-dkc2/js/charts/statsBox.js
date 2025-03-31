@@ -3,16 +3,6 @@ export function buildStatsBox(gameModels) {
     const totalAttempts = gameModels.length;
     const totalSuccesses = gameModels.filter(entry => entry.success).length;
 
-        // data wrangling for rhs
-        const furthestRun = gameModels.reduce((max, entry) => {
-            const current = parseInt(entry.world) * 100 + parseInt(entry.level);
-            return current > max.value ? { ...entry, value: current } : max;
-        }, { value: 0 });
-        const furthestRunLevelName = furthestRun.level_name || "Unknown Level";
-        const timesReached = gameModels.filter(
-            entry => entry.world === furthestRun.world && entry.level === furthestRun.level
-        ).length;
-
     // player deaths dynamic build
     const playerDeaths = gameModels.reduce((acc, entry) => {
         const playerName = entry.deathPlayer || "Unknown";
@@ -20,19 +10,43 @@ export function buildStatsBox(gameModels) {
         return acc;
     }, {});
 
+    // ordered by most-death descending
+    const sortedPlayerDeaths = Object.entries(playerDeaths)
+    .sort(([, countA], [, countB]) => countB - countA);
+
+    const orderedPlayerDeaths = Object.fromEntries(sortedPlayerDeaths);
+
+    // data wrangling for rhs
+    const furthestRun = gameModels.reduce((max, entry) => {
+        const current = parseInt(entry.world) * 100 + parseInt(entry.level);
+        return current > max.value ? { ...entry, value: current } : max;
+    }, { value: 0 });
+    const furthestRunLevelName = furthestRun.level_name || "Unknown Level";
+    const timesReached = gameModels.filter(
+        entry => entry.world === furthestRun.world && entry.level === furthestRun.level
+    ).length;
+
+
     // update the render
+
+    // lhs
     document.getElementById("totalAttempts").textContent = totalAttempts;
     document.getElementById("totalSuccesses").textContent = totalSuccesses;
-
     const playersContainer = document.getElementById("playerDeathCounts");
     playersContainer.innerHTML = ""; // wipe it as a safety before populating
-    Object.entries(playerDeaths).forEach(([player, deaths]) => {
+
+    Object.entries(orderedPlayerDeaths).forEach(([player, deaths]) => {
         const playerElement = document.createElement("p");
         playerElement.className = "card-text";
-        playerElement.textContent = `${player}: ${deaths} deaths`;
+        
+        playerElement.textContent = `${player}: `;
+        const deathsSpan = document.createElement("span");
+        deathsSpan.textContent = `${deaths} deaths`;
+        playerElement.appendChild(deathsSpan);
         playersContainer.appendChild(playerElement);
     });
-
+    
+    // rhs
     document.getElementById("furthestWorld").textContent = furthestRun.world || 0;
     document.getElementById("furthestLevel").textContent = furthestRun.level || 0;
     document.getElementById("furthestRunLevelName").textContent = furthestRunLevelName;
