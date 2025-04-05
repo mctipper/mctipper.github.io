@@ -21,6 +21,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
         integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+    <!-- Data Rendering Script -->
+    <script src="js/main.js" type="module"></script>
 </head>
 
 <body>
@@ -57,11 +59,12 @@
                                             id="furthestLevel">0</span></strong><br>
                                     <i><strong id="furthestRunLevelName">Unknown Level</strong></i>
                                 </p>
-                                <p class="card-text">
+                                <!-- note: this text will be replaced entirely if ever was a successful run -->
+                                <p class="card-text" id="bestAttemptOutcome">
                                     Ruined By: <strong><span id="deathPlayer">Unknown</span> (as <span
                                             id="deathCharacter">Unknown</span>)</strong>
                                 </p>
-                                <p class="card-text">Times Level Reached: <strong id="timesReached">0</strong></p>
+                                <p class="card-text">Occurences: <strong id="occurences">0</strong></p>
                             </div>
                         </div>
                     </div>
@@ -151,8 +154,6 @@
             </div>
         </div>
     </div>
-    <!-- Data Rendering Script, load after render -->
-    <script src="js/main.js" type="module"></script>
 </body>
 
 </html>

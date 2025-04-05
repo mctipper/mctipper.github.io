@@ -29,18 +29,20 @@ export function buildStackedProgress(gameModels, levelsData) {
                 const levelKey = `${w}-${l}`;
                 if (attempt.success) {
                     successCounts[levelKey]++;
-                }
-                const player = attempt.deathPlayer || attempt.player;
+                } else {
+                    // only render the deathPlayer attempt if not successful
+                    const player = attempt.deathPlayer
 
-                if (!levelAttemptCounts[levelKey][player]) {
-                    levelAttemptCounts[levelKey][player] = 0;
+                    if (!levelAttemptCounts[levelKey][player]) {
+                        levelAttemptCounts[levelKey][player] = 0;
+                    }
+                    levelAttemptCounts[levelKey][player]++;
                 }
-                levelAttemptCounts[levelKey][player]++;
             }
         }
     });
 
-    
+
     // generate labels for x-axis
     const levelLabels = [];
     for (const [world, levels] of Object.entries(levelsData)) {
@@ -49,7 +51,7 @@ export function buildStackedProgress(gameModels, levelsData) {
             levelLabels.push(`${worldInt}-${level}`);
         }
     }
-    
+
     // datasets for the chart
     const datasets = [];
     const players = new Set();
@@ -58,7 +60,17 @@ export function buildStackedProgress(gameModels, levelsData) {
             players.add(player);
         });
     });
-    
+
+    // success dataset done first to ensure always-at-the-bottom
+    const successData = levelLabels.map((level) => successCounts[level] || 0);
+    datasets.push({
+        label: 'Success',
+        data: successData,
+        backgroundColor: successColour,
+        borderWidth: 1,
+        stack: 'attempts',
+    });
+
     // players dataset
     players.forEach((player) => {
         const playerData = levelLabels.map((level) => {
@@ -69,19 +81,9 @@ export function buildStackedProgress(gameModels, levelsData) {
             label: `${player}`,
             data: playerData,
             backgroundColor: playerColours[player] || 'gray',
-            borderWidth: 1, 
+            borderWidth: 1,
             stack: 'attempts', // common stack group because of successData group
         });
-    });
-
-    // success dataset
-    const successData = levelLabels.map((level) => successCounts[level] || 0);
-    datasets.push({
-        label: 'Success',
-        data: successData,
-        backgroundColor: successColour, 
-        borderWidth: 1,
-        stack: 'attempts', 
     });
 
     return { labels: levelLabels, datasets };
@@ -109,12 +111,12 @@ export function buildProgressBar(gameModels, levelsData) {
                         text: 'Progress (World-Level)'
                     },
                     ticks: {
-                        autoSkip: false, 
+                        autoSkip: false,
                         // only show the labels for the -1 levels, for neatness
                         callback: (value, index, labelsArray) => {
-                            const label = labels[index]; 
-                            if (label && label.endsWith('-1')) { 
-                                return label; 
+                            const label = labels[index];
+                            if (label && label.endsWith('-1')) {
+                                return label;
                             }
                             return ''; // if not -1 level, hide it
                         }
@@ -128,7 +130,7 @@ export function buildProgressBar(gameModels, levelsData) {
                     grid: {
                         display: false
                     },
-                    stacked: true, 
+                    stacked: true,
                     beginAtZero: true // start y-axis at 0 to ensure single attempts remain visible
                 }
             },
@@ -139,23 +141,23 @@ export function buildProgressBar(gameModels, levelsData) {
                 tooltip: {
                     callbacks: {
                         label: (context) => {
-                            const label = context.label; 
-                            const datasets = context.chart.data.datasets; 
+                            const label = context.label;
+                            const datasets = context.chart.data.datasets;
                             const attemptsAtLevel = datasets.map((dataset) => {
-                                const playerName = dataset.label; 
-                                const attemptCount = dataset.data[context.dataIndex] || 0; 
-                                return `${playerName}: ${attemptCount}`; 
+                                const playerName = dataset.label;
+                                const attemptCount = dataset.data[context.dataIndex] || 0;
+                                return `${playerName}: ${attemptCount}`;
                             });
 
                             return [`World-Level: ${label}`, ...attemptsAtLevel];
                         },
-                        title: () => null, 
-                        body: (items) => items.map(() => null), 
+                        title: () => null,
+                        body: (items) => items.map(() => null),
                     },
-                    displayColors: false, 
+                    displayColors: false,
                 },
                 gridLines: {
-                    drawOnChartArea: false, 
+                    drawOnChartArea: false,
                 }
             },
             elements: {
@@ -172,7 +174,7 @@ export function buildProgressBar(gameModels, levelsData) {
         drawBorder: true,
         drawTicks: true,
         color: (context) => {
-            const label = String(labels[context.index]); 
+            const label = String(labels[context.index]);
             if (label && label.endsWith('-1')) {
                 return '#ddd'; // display grid line for world changes (i.e. -1 levels)
             }
