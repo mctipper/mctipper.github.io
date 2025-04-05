@@ -4,6 +4,7 @@ import { buildPiePlayerDeath } from './charts/piePlayerDeath.js'
 import { buildPieCharacterDeath } from './charts/pieCharacterDeath.js'
 import { buildPlayerCharacterDeathBarChart } from './charts/barPlayerCharacterDeath.js'
 import { buildStreakPlot } from './charts/linePlayerDeathStreak.js'
+import { buildAttemptBar } from './charts/barAttempt.js'
 import { buildProgressBar } from './charts/barProgress.js'
 
 
@@ -25,6 +26,9 @@ import { buildProgressBar } from './charts/barProgress.js'
 
         // death streak
         buildStreakPlot(gameModels)
+
+        // game attempt
+        buildAttemptBar(gameModels, levelsData)
 
         // game progress
         buildProgressBar(gameModels, levelsData)
