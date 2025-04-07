@@ -112,11 +112,11 @@ export function buildProgressBar(gameModels, levelsData) {
                     },
                     ticks: {
                         autoSkip: false,
-                        // only show the labels for the -1 levels, for neatness
+                        // only show the labels for the worlds, not levels, for neatness
                         callback: (value, index, labelsArray) => {
                             const label = labels[index];
                             if (label && label.endsWith('-1')) {
-                                return label;
+                                return label[0];
                             }
                             return ''; // if not -1 level, hide it
                         }
