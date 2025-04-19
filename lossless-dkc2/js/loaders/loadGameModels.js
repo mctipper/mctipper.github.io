@@ -15,7 +15,7 @@ export async function loadGameModels() {
         const levelsData = await levelsResponse.json();
 
         // flatten to list and map to our GameModel objects because neatness
-        const flattenedGamesData = Object.values(gamesData[0]);
+        const flattenedGamesData = Object.values(gamesData);
         const gameModels = flattenedGamesData.map(entry => {
             return new GameModel(
                 entry.date,
