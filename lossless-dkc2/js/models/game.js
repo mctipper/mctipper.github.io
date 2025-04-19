@@ -6,8 +6,10 @@ export class GameModel {
 
         // hacky data validation, force fields to behave when successful run
         if (success) {
-            this.world = "7";
-            this.level = "2";
+            // return max 'world' in levels dataset, since we were successful just recorded as last level
+            this.world = Math.max(...Object.keys(levelsData).map(Number));
+            this.level = Math.max(...Object.keys(levelsData[this.world]).map(Number));
+            // no death recorded since successful obvs
             this.deathPlayer = "";
             this.deathCharacter = "";
         } else {
