@@ -121,7 +121,7 @@ h2 {
 .sidebar ul li a { color: #333; text-decoration: none; }
 .sidebar ul li a:hover { color: #0033cc; text-decoration: underline; }
 
-.page-layout main { margin-left: 240px; padding: 0; }
+.page-layout main-content { margin-left: 240px; padding: 0; }
 
 /* Tooltip */
 .tooltip { position: relative; border-bottom: 1px dotted #000; cursor: help; }
@@ -139,5 +139,8 @@ h2 {
 /* Just to hide the sidebar on smaller screens really */
 @media (max-width: 768px) {
     .sidebar-container { display: none; }
-    .page-layout main { margin-left: 0; }
+    #main-content { 
+        margin-left: 0; 
+        padding: 0 20px;
+    }
 }
