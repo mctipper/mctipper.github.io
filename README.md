@@ -2,7 +2,7 @@
 
 Just a vanilla implementation; might dolly this up later.
 
-Place to hyperlink to everything else really, not much else going on here.
+Place to hyperlink to everything else really, not much else going on here. Nice clean minimalist design that simple to navigate and not bothering to users.
 
 
 ## Deployment

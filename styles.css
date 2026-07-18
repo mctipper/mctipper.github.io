@@ -1,80 +1,143 @@
+/* Universal Styles */
+* { box-sizing: border-box; }
+
 body {
-    font-family: Arial, sans-serif;
-    max-width: 50%;
-    margin: 40px auto;
-    padding: 0 20px;
-    line-height: 1.6;
-    color: #222;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    margin: 0;
+    color: #000;
+    background-color: #fff;
+    line-height: 1.4;
 }
 
+/* Header */
 header {
-    margin-bottom: 2rem;
+    border-top: 5px solid #070d61;
+    border-bottom: 1px solid #999;
+    background-color: #fcfcfc;
+    padding: 15px 20px;
+}
+
+.header-inner, main, .page-layout {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.sub-header {
+    font-size: 16px;
+    color: #555;
+    margin: -5px 0 10px 0;
+    font-weight: normal;
+    font-style: italic;
 }
 
 h1 {
-    margin-bottom: 0.2rem;
-    font-size: 2.2rem;
+    margin: 0 0 2px 0;
+    font-size: 26px;
+    font-weight: bold;
+    letter-spacing: -0.5px;
+    text-transform: uppercase;
 }
 
-.tagline {
-    color: #666;
-    margin-top: 0;
-}
+h1 a { text-decoration: none; color: #006633; }
 
-.socials {
-    margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-}
+.tagline { color: #333; margin: 0 0 10px 0; font-size: 11px; font-weight: bold; }
 
-.socials img {
-    width: 28px;
-    height: 28px;
-    opacity: 0.8;
-    transition: opacity 0.2s ease;
-}
+.socials { display: block; margin-top: 10px; }
+.socials a { margin-right: 15px; text-decoration: none; }
+.socials img { width: 16px; height: 16px; vertical-align: middle; }
 
-.socials img:hover {
-    opacity: 1;
-}
+/* Content Sections */
+.intro-text { font-size: 13px; color: #333; margin-bottom: 30px; }
 
 h2 {
-    margin-top: 2rem;
+    font-size: 14px;
+    font-weight: bold;
+    color: #000;
+    margin: 20px 0 0 0;
+    padding: 8px 10px;
+    background-color: #e6e6e6;
+    border: 1px solid #ccc;
+    text-transform: uppercase;
 }
 
-/* Cards */
-.card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.5rem;
-    margin: 1rem 0 2rem;
+.item-list {
+    list-style: none;
+    margin: 0 0 30px 0;
+    padding: 0;
+    border: 1px solid #ccc;
+    border-top: none;
+    background-color: #fff;
 }
 
-.card {
-    display: block;
-    background: #fff;
-    border-radius: 8px;
-    padding: 1rem;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 10px 10px 6px rgba(0,0,0,0.1);
-    transition: transform 0.15s ease, box-shadow 0.15s ease;
+.item-list li { padding: 12px 15px; border-bottom: 1px solid #e0e0e0; }
+.item-list li:last-child { border-bottom: none; }
+
+.item-title {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: bold;
+    color: #0033cc;
+    text-decoration: underline;
+    margin-bottom: 6px;
+}
+.item-title:hover { background-color: #0033cc; color: #fff; text-decoration: none; }
+.item-title:visited { color: #551a8b; }
+
+.coming-soon-text { font-size: 12px; color: #666; margin-left: 10px; font-style: italic; }
+
+.item-desc { font-size: 13px; color: #111; }
+.item-desc p { margin: 0 0 6px 0; }
+.item-desc i { display: block; color: #555; font-size: 11px; margin-top: 4px; }
+
+/* Icons & Repo Links */
+.icon-list {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 2px 0 10px 0;
 }
 
-.card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+.icon-list a { display: flex; align-items: center; text-decoration: none; }
+.icon-list img { width: 14px; height: 14px; opacity: 0.65; display: block; }
+.icon-list img:hover { opacity: 1; }
+.icon-list .sep { color: #ccc; font-size: 14px; line-height: 1; }
+
+/* Layout & Sidebar */
+.page-layout { margin: 20px auto; overflow: hidden; }
+.sidebar-container { float: left; width: 220px; }
+.sidebar { background-color: #f2f2f2; border: 1px solid #ccc; padding: 12px; font-size: 12px; }
+
+.menu-title {
+    font-size: 14px; font-weight: bold; border-bottom: 2px solid #ccc;
+    padding-bottom: 5px; margin-bottom: 8px; color: #006633;
 }
 
-.card img {
-    width: 100%;
-    height: 140px;
-    object-fit: cover;
-    border-radius: 6px;
-    margin-bottom: 0.75rem;
-}
+.menu-group { margin-bottom: 10px; }
+.menu-group summary { font-weight: bold; cursor: pointer; }
 
-.card h3 {
-    margin: 0 0 0.5rem;
-    font-size: 1.2rem;
+.sidebar ul { list-style: none; margin: 4px 0 8px 18px; padding: 0; }
+.sidebar ul li { margin-bottom: 6px; }
+.sidebar ul li a { color: #333; text-decoration: none; }
+.sidebar ul li a:hover { color: #0033cc; text-decoration: underline; }
+
+.page-layout main { margin-left: 240px; padding: 0; }
+
+/* Tooltip */
+.tooltip { position: relative; border-bottom: 1px dotted #000; cursor: help; }
+.tooltip::after {
+    content: attr(data-tooltip);
+    position: absolute; bottom: 100%; left: 50%;
+    transform: translateX(-50%);
+    background: #333; color: #fff; padding: 5px 8px;
+    border-radius: 4px; font-size: 11px; white-space: nowrap;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s; z-index: 10;
+}
+.tooltip:hover::after { opacity: 1; }
+
+/* Mobile */
+/* Just to hide the sidebar on smaller screens really */
+@media (max-width: 768px) {
+    .sidebar-container { display: none; }
+    .page-layout main { margin-left: 0; }
 }
