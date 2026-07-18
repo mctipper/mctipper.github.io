@@ -121,7 +121,7 @@ h2 {
 .sidebar ul li a { color: #333; text-decoration: none; }
 .sidebar ul li a:hover { color: #0033cc; text-decoration: underline; }
 
-.page-layout main-content { margin-left: 240px; padding: 0; }
+#main-content { margin-left: 240px; padding: 0; }
 
 /* Tooltip */
 .tooltip { position: relative; border-bottom: 1px dotted #000; cursor: help; }
