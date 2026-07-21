@@ -33,9 +33,17 @@ const projects = [
         desc: "Uses depth-first-search to discover Hamiltonian Paths in AFL seasons." }
     ]
   },
-{
-    category: "Graphics",
-    isComingSoon: true
+  {
+    category: "Stuff",
+    items: [
+      { 
+        name: "Wingstats", 
+        href: "wingstats/", 
+        repo: "wingstats",
+        icons: [getIcon("html5", "E34F26"), getIcon("typescript", "3178C6")],
+        desc: "Details the expected value and success probability for different dice rolling conditions from the boardgame 'Wingspan'."
+      }
+    ]
   },
   {
     category: "Systems (AI/ML)",
